@@ -1,6 +1,5 @@
 //ruby -run -e httpd . -p 5000
 //cd ~/desktop/github/play_remix
-var fftPad;
 
 function preload() {
 	bass = {
@@ -34,10 +33,13 @@ function preload() {
 }
 
 function setup() {
-createCanvas(windowWidth, windowHeight);
-//amplitude = new p5.Amplitude();
-fftPad = new p5.FFT();
-fftPad.setInput(pad);
+	createCanvas(windowWidth, windowHeight);
+	padPlay = new p5.AudioIn();
+	fftPad = new p5.FFT();
+	fftPad.setInput(pad.sound);
+
+	padAmplitude = new p5.Amplitude();
+	system = new ParticleSystem(createVector(width/2, 50));
 }
 
 function mousePressed(){
@@ -49,11 +51,27 @@ function mousePressed(){
 function draw() {
 	var drawPad = fftPad.analyze();
 
-	BeginShape();
-  	for (i = 0; i<spectrum.length; i++) {
-    vertex(i, map(spectrum[i], 0, 255, height, 0) );
+	var backgroundPad = padAmplitude.getLevel();
+	var showBreaks = breaks.sound.getLevel();
+	console.log(showBreaks)
+	
+	// H, S & B integer values
+	colorMode(HSB);
+	background(255, 105, backgroundPad*255);
+
+	beginShape();
+  	for (i = 0; i<drawPad.length; i++) {
+    point(i, drawPad[i]);
   	}
 	endShape();
 
+	if (showBreaks > 0.26) {
+			system.addParticle();
+  		
+	}
+	system.run();
 }
+
+
+
 

@@ -1,10 +1,8 @@
 //ruby -run -e httpd . -p 5000
 //cd ~/desktop/github/play_remix
-var fftPad;
-
 function preload() {
 	bass = {
-		sound: loadSound('/audio/BASS.ogg'),
+		sound: loadSound('/audio/BASS.mid'),
 		playing: false,
 		play: function() {
 			this.sound.play();
@@ -14,7 +12,7 @@ function preload() {
 	};
 	
 	breaks = {
-		sound: loadSound('/audio/BREAKS.ogg'),
+		sound: loadSound('/audio/BREAKS.mid'),
 		playing: false,
 		play: function() {
 			this.sound.play();
@@ -23,32 +21,29 @@ function preload() {
 	};
 
 	pad = {
-		sound: loadSound('/audio/PAD.ogg'),
+		sound: loadSound('/audio/PAD.mid'),
 		playing: false,
 		play: function() {
 			this.sound.play();
 			this.playing = true;
-			
 		}
 	};
 }
 
 function setup() {
 createCanvas(windowWidth, windowHeight);
-//amplitude = new p5.Amplitude();
 fftPad = new p5.FFT();
 fftPad.setInput(pad);
+var padFreq = midiToFreq(pad.sound);
 }
 
 function mousePressed(){
-	bass.play();
-	breaks.play();
-	pad.play();
+	//bass.play();
+	//breaks.play();
+	padFreq.play();
 }
 
 function draw() {
-	var drawPad = fftPad.analyze();
-
 	BeginShape();
   	for (i = 0; i<spectrum.length; i++) {
     vertex(i, map(spectrum[i], 0, 255, height, 0) );
