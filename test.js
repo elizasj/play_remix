@@ -1,26 +1,25 @@
-var notes = [60, 64, 67, 72];
-var i = 0;
+var sound, amplitude, cnv;
 
-function setup() {
-  osc = new p5.Oscillator('Triangle');
-  osc.start();
-  frameRate(1);
+function preload(){
+  sound = loadSound('assets/beat.mp3');
 }
+function setup() {
+  cnv = createCanvas(100,100);
+  amplitude = new p5.Amplitude();
 
+  // start / stop the sound when canvas is clicked
+  cnv.mouseClicked(function() {
+    if (sound.isPlaying() ){
+      sound.stop();
+    } else {
+      sound.play();
+    }
+  });
+}
 function draw() {
- 
-	var freq = midiToFreq(notes[i]);
-  osc.freq(freq);
-  i++;
-  if (i >= notes.length){
-    i = 0;
-  }
-
-
-  if (mouseIsPressed) {
-    fill(0);
-  } else {
-    fill(255);
-  }
-  ellipse(mouseX, mouseY, 80, 80);
+  background(0);
+  fill(255);
+  var level = amplitude.getLevel();
+  var size = map(level, 0, 1, 0, 200);
+  ellipse(width/2, height/2, size, size);
 }

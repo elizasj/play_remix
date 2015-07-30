@@ -57,3 +57,10 @@ function draw() {
 
 }
 
+//ellipse(mouseX, mouseY, 10, 40);
+//var level = pad.sound.amplitude.getLevel();
+//var size = map(level, 0, 1, 0, 200);
+//ellipse(mouseX, mouseY, size, size);
+
+
+
