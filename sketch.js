@@ -47,7 +47,9 @@ function setup() {
 
   cnv = createCanvas(windowWidth,windowHeight);
   c1 = color(255, 246, 170);
+  transparency = color()
   c2 = color(255, 112, 133);
+
 }
 
 function mousePressed(){
@@ -58,23 +60,17 @@ function mousePressed(){
 
 function draw() {
   var drawPad = fftPad.analyze();
-
   var backgroundPad = padAmplitude.getLevel();
   var showBreaks = breaks.sound.getLevel();
 
-  setGradient(0, 0, width, height, c2, c1, Y_AXIS);
-
-  // H, S & B integer values
-  //colorMode(HSB);
-  //background(255, 105, backgroundPad*255);
+  var gradient1 = setGradient(0, 0, width, height, c2, c1, Y_AXIS);
+  var gradient2 = setGradient(0, 0, width, height, c2, c1, Y_AXIS);
 
   beginShape();
-
-  for (var i = 0; i < drawPad.length; i++) {
-    point(i, drawPad[i]);
-  }
-
-  endShape();
+  	for (var i = 0; i < drawPad.length; i++) {
+    	point(i, drawPad[i]);
+  	}
+ 	endShape();
 
   if (showBreaks > 0.01) {
     system.addParticle();
@@ -82,3 +78,7 @@ function draw() {
 
   system.run();
 }
+
+  // H, S & B integer values
+  //colorMode(HSB);
+  //background(255, 105, backgroundPad*255);
