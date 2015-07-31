@@ -1,5 +1,7 @@
 //ruby -run -e httpd . -p 5000
 //cd ~/desktop/github/play_remix
+var midiFileParser = require('midi-file-parser');
+
 function preload() {
 	bass = {
 		sound: loadSound('/audio/BASS.mid'),
@@ -44,7 +46,7 @@ function mousePressed(){
 }
 
 function draw() {
-	BeginShape();
+	beginShape();
   	for (i = 0; i<spectrum.length; i++) {
     vertex(i, map(spectrum[i], 0, 255, height, 0) );
   	}
