@@ -15,4 +15,3 @@ function setGradient(x, y, w, h, c1, c2, axis) {
 
 //create two gradients
 //each with one solid color & one trasparency
-

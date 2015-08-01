@@ -3,7 +3,7 @@
 var Y_AXIS = 2;
 var X_AXIS = 1;
 var c1, c2;
-
+var c1_Alpha;
 
 function preload() {
   bass = {
@@ -46,9 +46,13 @@ function setup() {
   system = new ParticleSystem();
 
   cnv = createCanvas(windowWidth,windowHeight);
+  
   c1 = color(255, 246, 170);
-  transparency = color()
   c2 = color(255, 112, 133);
+
+//noStroke();
+//c = color(0, 126, 255, 0);
+//fill(c1);
 
 }
 
@@ -63,8 +67,13 @@ function draw() {
   var backgroundPad = padAmplitude.getLevel();
   var showBreaks = breaks.sound.getLevel();
 
-  var gradient1 = setGradient(0, 0, width, height, c2, c1, Y_AXIS);
-  var gradient2 = setGradient(0, 0, width, height, c2, c1, Y_AXIS);
+  var gr1 = setGradient(0, 0, width, height, c2, c1, Y_AXIS);
+
+  var gr2 =setGradient(0, 0, width, height, c2, c1, Y_AXIS);
+
+  // H, S & B integer values
+  //colorMode(HSB);
+  //background(255, 105, backgroundPad*255);
 
   beginShape();
   	for (var i = 0; i < drawPad.length; i++) {
@@ -79,6 +88,3 @@ function draw() {
   system.run();
 }
 
-  // H, S & B integer values
-  //colorMode(HSB);
-  //background(255, 105, backgroundPad*255);
