@@ -40,6 +40,7 @@
 
     var yCoord1 = yPosition - (offset);  
     var yCoord2 = yPosition + (offset);
+    smooth();
     line(topX, yCoord1, bottomX, yCoord2);
 
   }

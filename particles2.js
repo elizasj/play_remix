@@ -2,8 +2,8 @@
 function ParticleLines(position, force, hue) {
   this.position = createVector(position.x, position.y);
   this.velocity = createVector(force.x, force.y);
-  this.drag = 0.95;
-  this.lifespan = 255;
+  this.drag = 0.65;
+  this.lifespan = 200.0;
 }
 
 ParticleLines.prototype.update = function() {
@@ -12,19 +12,22 @@ ParticleLines.prototype.update = function() {
   // Slow it down
   this.velocity.mult(this.drag);
   // Fade it out
-  this.lifespan--;
+  this.lifespan--*3;
 }
 
 // Draw particle and connect it with a line
 // Draw a line to another
 ParticleLines.prototype.display = function(other) {
-  stroke(230, 4, 10, this.lifespan);
+  smooth();
+  stroke(42, 0, 144, this.lifespan);
   strokeWeight(1);
-  fill(255, this.lifespan);
+  fill(42, 0, 144, this.lifespan);
 
-  ellipse(this.position.x,this.position.y, 5, 5);    
+  smooth();
+  ellipse(this.position.x,this.position.y, 3, 3);    
   // If we need to draw a line
   if (other) {
+  	smooth();
     line(this.position.x, this.position.y, other.position.x, other.position.y);
   }
 }

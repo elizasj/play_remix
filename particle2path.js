@@ -23,10 +23,10 @@ Path.prototype.display = function() {
   for (var i = this.particles.length - 1; i >= 0; i--) {
     // If we shold remove it
     if (this.particles[i].lifespan <= 0) {
-      this.particles.splice(i, 10);
+      this.particles.splice(i, 1);
     // Otherwise, display it
     } else {
-      this.particles[i].display(this.particles[i+1]);
+      this.particles[i].display(this.particles[i-1]);
     }
   }
 

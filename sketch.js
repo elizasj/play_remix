@@ -100,6 +100,10 @@ function setup() {
   padAmplitude = new p5.Amplitude();
   padAmplitude.setInput(pad.sound)
   system = new ParticleSystem();
+  fxAmplitude = new p5.Amplitude();
+  fxAmplitude.setInput(fx.sound)
+
+
 
   cnv = createCanvas(windowWidth,windowHeight);
   
@@ -123,17 +127,12 @@ function mousePressed(){
   fx.toggle();
 }
 
-// // Stop
-// function mouseReleased() {
- 
-// }
-
 function draw() {
   var drawPad = fftPad.analyze();
   var backgroundPad = padAmplitude.getLevel();
   var showBreaks = breaks.sound.getLevel();
   var showBass = bass.sound.getLevel();
-  var showFX = breaks.sound.getLevel();
+  var showFX = fxAmplitude.getLevel();
 
 
   if (showBreaks > 0.01) {
@@ -163,16 +162,11 @@ function draw() {
    	}
  	endShape();
 
-  if (showBreaks > 0.01) {
-    system.addParticle();
-  }
-
   system.run();
 
   //draw particles
   // start it up
-  console.log(showFX)
-  if (showFX > 0.00008) {
+  if (showFX > 0.08) {
   next = 0;
   painting = true;
   previous.x = showFX;
@@ -180,19 +174,19 @@ function draw() {
   paths.push(new Path());
   }
 
-  // //stop
-  // if (fx == false) {
-  // painting = false;
-  // }
+  //stop
+  if (showFX < 0.07) {
+  painting = false;
+  }
 
   // If it's time for a new point
   if (millis() > next && painting) {
 
-    // Grab mouse position      
+    // set dot position      
     current.x = random(0, windowWidth);
     current.y = random(0, windowHeight);
 
-    // New particle's force is based on mouse movement
+    // New particle's force is based on showFX sound
     var force = p5.Vector.sub(current, previous);
     force.mult(0.05);
 
@@ -202,12 +196,12 @@ function draw() {
     // Schedule next circle
     next = millis() + 10;
 
-    // Store mouse values
+    // Store values
     previous.x = current.x;
     previous.y = current.y;
   }
 
-  //particles2
+  // particles2
   // Draw all paths
   for( var i = 0; i < paths.length; i++) {
     paths[i].update();
