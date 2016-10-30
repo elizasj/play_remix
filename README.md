@@ -1,2 +1,3 @@
 # play_remix
-ironhack final project
+
+each sound produces a seperate visual
