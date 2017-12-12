@@ -1,3 +1,3 @@
 # play_remix
 
-each sound produces a seperate visual
+Audio visualization with P5js
